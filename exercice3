@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TP3 Exercice 2</title>
+</head>
+<body>
+
+<form id="form2">
+    Taille tableau : <input type="text" id="size"><br><br>
+    Limite min : <input type="text" id="min"><br><br>
+    Limite max : <input type="text" id="max"><br><br>
+
+    <button type="submit">Générer</button>
+</form>
+
+<div id="tableau"></div>
+
+<script>
+document.getElementById("form2").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    let size = parseInt(document.getElementById("size").value);
+    let min = parseInt(document.getElementById("min").value);
+    let max = parseInt(document.getElementById("max").value);
+
+    if(isNaN(size) || isNaN(min) || isNaN(max)){
+        alert("Valeurs invalides");
+        return;
+    }
+
+    if(min >= max){
+        alert("Min doit être inférieur à Max");
+        return;
+    }
+
+    let html = "<table border='1'><tr>";
+
+    for(let i=1;i<=size;i++){
+        let rand = Math.floor(Math.random()*(max-min+1))+min;
+        html += "<td>"+rand+"</td>";
+
+        if(i%10==0) html += "</tr><tr>";
+    }
+
+    html += "</tr></table>";
+
+    document.getElementById("tableau").innerHTML = html;
+});
+</script>
+
+</body>
+</html>
