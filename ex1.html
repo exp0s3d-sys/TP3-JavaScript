@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TP3 Exercice 1</title>
+</head>
+<body>
+
+<h2>Formulaire</h2>
+
+<form id="form1">
+    Nom : <input type="text" id="nom"><br><br>
+    Prenom : <input type="text" id="prenom"><br><br>
+    Email : <input type="text" id="email"><br><br>
+
+    <button type="submit">Valider</button>
+    <button type="reset">Annuler</button>
+</form>
+
+<div id="result"></div>
+
+<script>
+document.getElementById("form1").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    let nom = document.getElementById("nom").value;
+    let prenom = document.getElementById("prenom").value;
+    let email = document.getElementById("email").value;
+
+    if(nom=="" || prenom=="" || email==""){
+        alert("Tous les champs sont obligatoires");
+        return;
+    }
+
+    document.getElementById("result").innerHTML =
+        "<h3>Récapitulatif</h3>" +
+        "Nom : " + nom + "<br>" +
+        "Prenom : " + prenom + "<br>" +
+        "Email : " + email;
+});
+</script>
+
+</body>
+</html>

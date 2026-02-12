@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TP3 Exercice 3</title>
+</head>
+<body>
+
+<form id="form3">
+
+Code : <input type="text" id="code"><br>
+Nom : <input type="text" id="nom"><br>
+Prenom : <input type="text" id="prenom"><br>
+
+Semestre :
+<select id="semestre">
+    <option value="">Choisir</option>
+    <option>S1</option>
+    <option>S2</option>
+</select>
+<br><br>
+
+Notes :
+<input type="text" class="note">
+<input type="text" class="note">
+<input type="text" class="note">
+<input type="text" class="note">
+<input type="text" class="note">
+<input type="text" class="note">
+
+<br><br>
+<button type="submit">Ajouter</button>
+
+</form>
+
+<table border="1" id="tableEtudiant">
+<tr>
+<th>Code</th>
+<th>Nom</th>
+<th>Semestre</th>
+<th>Moyenne</th>
+<th>Résultat</th>
+</tr>
+</table>
+
+<script>
+document.getElementById("form3").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    let code = document.getElementById("code").value;
+    let nom = document.getElementById("nom").value;
+    let prenom = document.getElementById("prenom").value;
+    let semestre = document.getElementById("semestre").value;
+
+    let notesInputs = document.querySelectorAll(".note");
+
+    if(code=="" || nom=="" || prenom=="" || semestre==""){
+        alert("Champs obligatoires");
+        return;
+    }
+
+    let notes=[];
+    let somme=0;
+    let nonValide=0;
+    let eliminatoire=false;
+
+    for(let n of notesInputs){
+        let val=parseFloat(n.value);
+
+        if(isNaN(val)){
+            alert("Notes invalides");
+            return;
+        }
+
+        notes.push(val);
+        somme+=val;
+
+        if(val<8) eliminatoire=true;
+        else if(val<12) nonValide++;
+    }
+
+    let moyenne = somme/notes.length;
+
+    let resultat="Validé";
+
+    if(eliminatoire || nonValide>=3 || moyenne<12){
+        resultat="Echec";
+    }
+
+    let row="<tr>"+
+        "<td>"+code+"</td>"+
+        "<td>"+nom+" "+prenom+"</td>"+
+        "<td>"+semestre+"</td>"+
+        "<td>"+moyenne.toFixed(2)+"</td>"+
+        "<td>"+resultat+"</td>"+
+        "</tr>";
+
+    document.getElementById("tableEtudiant").innerHTML += row;
+
+});
+</script>
+
+</body>
+</html>
